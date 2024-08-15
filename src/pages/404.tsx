@@ -1,18 +1,18 @@
 import Link from "next/link";
 
-import Layout from "@/components/Layout/Layout";
-
-export default function PageNotFound() {
+export default function PageNotFound(): JSX.Element {
   return (
-    <Layout>
-      <div>
-        <h1>К сожалению, такой страницы не существует</h1>
-        <div>
-          Вы можете вернуться на <Link href="/">главную страницу</Link>, либо
-          оставить свой комментарий на
-          <Link href="/contacts"> странице контактов</Link>.
-        </div>
+    <div className="flex flex-col justify-center items-center">
+      <h1 className="text-5xl font-bold mt-10 mb-5">
+        <span className="text-red-500 font-bold">404</span> | К сожалению, такой
+        страницы не существует
+      </h1>
+      <div className="text-3xl">
+        Вы можете вернуться на{" "}
+        <Link className="text-red-500 font-bold hover:text-red-700" href="/">
+          главную страницу
+        </Link>
       </div>
-    </Layout>
+    </div>
   );
 }

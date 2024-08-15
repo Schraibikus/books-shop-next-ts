@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import s from "./Carousel.module.scss";
-import debounce from "../../utils/debounce";
 import Image from "next/image";
+
+import styles from "./Carousel.module.scss";
+import debounce from "../../utils/debounce";
+import Link from "next/link";
 
 type CarouselProps = {
   slides: string[];
@@ -58,34 +60,58 @@ const Carousel = ({ slides }: CarouselProps) => {
   const cn = (...args: string[]) => args.filter(Boolean).join(" ");
 
   return (
-    <div ref={rootRef} className={s.carousel}>
-      <div className={s.wrapper}>
-        <div ref={containerRef} className={s.container}>
-          {slides.map((slide) => (
-            <div key={slide} className={s.slide}>
-              <Image
-                src={slide}
-                alt="slide"
-                loading="lazy"
-                width={1120}
-                height={702}
-              />
-            </div>
+    <>
+      <Link href="/">
+        <Image
+          className="absolute z-10 right-[-86px] top-[79px] w-[149px] h-[204px] shadow-[0_24px_36px_0_#35315447]"
+          src="/images/promo_01.png"
+          alt="promo-01"
+          width={149}
+          height={204}
+        />
+      </Link>
+      <Link href="/">
+        <Image
+          className="absolute z-10 right-[-181px] bottom-[70px] w-[158px] h-[273px] shadow-[0_24px_36px_0_#35315447]"
+          src="/images/promo_02.png"
+          alt="promo-02"
+          width={158}
+          height={273}
+        />
+      </Link>
+
+      <div ref={rootRef} className={styles.carousel}>
+        <div className={styles.wrapper}>
+          <div ref={containerRef} className={styles.container}>
+            {slides.map((slide) => (
+              <div key={slide} className={styles.slide}>
+                <Image
+                  src={slide}
+                  alt="slide"
+                  loading="lazy"
+                  width={1120}
+                  height={702}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.pagination}>
+          {slides.map((slide, index) => (
+            <button
+              key={slide}
+              type="button"
+              className={cn(
+                styles.dot,
+                activeSlide === index ? styles.active : ""
+              )}
+              onClick={handleClick(index)}
+            />
           ))}
         </div>
       </div>
-
-      <div className={s.pagination}>
-        {slides.map((slide, index) => (
-          <button
-            key={slide}
-            type="button"
-            className={cn(s.dot, activeSlide === index ? s.active : "")}
-            onClick={handleClick(index)}
-          />
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
 

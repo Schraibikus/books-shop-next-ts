@@ -8,21 +8,33 @@ export default function Navigation() {
   const router = useRouter();
   return (
     <nav>
-      <ul className="list flex gap-[40px] items-center">
+      <ul className="flex gap-[40px] items-center font-primary">
         <li
           className={clsx(styles.item, {
-            [styles.disabled]: router.pathname === "/",
+            [styles.active]: router.pathname === "/books",
           })}
         >
-          <Link href="/">books</Link>
+          <Link href="/books">books</Link>
         </li>
-        <li className={styles.item}>
+        <li
+          className={clsx(styles.item, {
+            [styles.active]: router.pathname === "/audiobooks",
+          })}
+        >
           <Link href="/audiobooks">audiobooks</Link>
         </li>
-        <li className={styles.item}>
-          <Link href="/stationery&gifts">Stationery & gifts</Link>
+        <li
+          className={clsx(styles.item, {
+            [styles.active]: router.pathname === "/stationeryGifts",
+          })}
+        >
+          <Link href="/stationeryGifts">Stationery & gifts</Link>
         </li>
-        <li className={styles.item}>
+        <li
+          className={clsx(styles.item, {
+            [styles.active]: router.pathname === "/blog",
+          })}
+        >
           <Link href="/blog">blog</Link>
         </li>
       </ul>
