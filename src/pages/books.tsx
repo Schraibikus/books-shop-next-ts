@@ -1,15 +1,10 @@
-import Link from "next/link";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 import Carousel from "@/components/Carousel/Carousel";
 import Layout from "@/components/Layout/Layout";
 import { API_URL, CATEGORYS, KEY, SLIDES } from "../../const";
-import { useEffect, useState } from "react";
 import { Book } from "@/components/Book";
-
-type CategorylProps = {
-  category: string[];
-};
 
 export interface BookItem {
   id: string;
@@ -30,7 +25,11 @@ export interface BookItem {
 }
 
 export default function Books() {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<BookItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [categoryEvent, setCategoryEvent] = useState(CATEGORYS[0]);
+  const [nextBooks, setNextBooks] = useState(0);
+  const [activeCategory, setActiveCategory] = useState(categoryEvent);
 
   function getParams(categoryTag: string, startIndex: number) {
     const params = new URLSearchParams(window.location.search);
@@ -48,14 +47,36 @@ export default function Books() {
       try {
         const booksReaponse = await axios.get(`${API_URL}?${params}`);
         setBooks(booksReaponse.data.items);
-        console.log(booksReaponse.data.items);
       } catch (error) {
         alert("Ошибка при запросе данных ;(");
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     }
-    fetchData(getParams(CATEGORYS[1], 0));
-  }, []);
+    fetchData(getParams(categoryEvent, nextBooks));
+  }, [categoryEvent, nextBooks]);
+
+  function changeCategory(event: React.MouseEvent<HTMLLIElement, MouseEvent>) {
+    let category = (event.target as HTMLElement).textContent;
+    if (category !== null) {
+      setCategoryEvent(category);
+      setActiveCategory(category);
+    }
+    return category;
+  }
+
+  async function showNextBooks() {
+    setNextBooks(nextBooks + 6);
+    const newBooks = await axios.get(
+      `${API_URL}?${getParams(categoryEvent, nextBooks)}`
+    );
+    setBooks([...books, ...newBooks.data.items]);
+  }
+
+  if (loading) {
+    return <Layout>... Loading ...</Layout>;
+  }
 
   return (
     <>
@@ -69,14 +90,14 @@ export default function Books() {
               {CATEGORYS.map((category, index) => (
                 <li
                   key={index}
-                  className="hover:list-disc list-outside marker:text-[#756AD3]"
+                  className={
+                    activeCategory === category
+                      ? "list-disc marker:text-[#756AD3] text-[#1C2A39] text-[16px] font-bold cursor-pointer"
+                      : "hover:list-disc list-outside marker:text-[#756AD3] text-[#5C6A79] text-[12px] active:text-[16px] hover:text-[16px] active:font-bold hover:font-bold active:text-[#1C2A39] hover:text-[#1C2A39] transition-all cursor-pointer"
+                  }
+                  onClick={changeCategory}
                 >
-                  <Link
-                    href={`/books/${category}`}
-                    className="text-[#5C6A79] text-[12px] active:text-[16px] hover:text-[16px] active:font-bold hover:font-bold active:text-[#1C2A39] hover:text-[#1C2A39] transition-all"
-                  >
-                    {category}
-                  </Link>
+                  {category}
                 </li>
               ))}
             </ul>
@@ -86,6 +107,7 @@ export default function Books() {
               books.map((book: BookItem) => (
                 <Book
                   key={book.id}
+                  {...book}
                   imageUrl={book.volumeInfo.imageLinks.thumbnail}
                   alt={book.volumeInfo.description ?? `book-${book.id}`}
                   title={book.volumeInfo.title}
@@ -95,13 +117,16 @@ export default function Books() {
                   currencyCode={book.saleInfo?.listPrice?.currencyCode ?? ""}
                 />
               ))}
+            <div className="py-10 col-span-2">
+              <button
+                onClick={showNextBooks}
+                className=" text-[8px] text-[#4C3DB2] border-[1px] border-[#4C3DB2] w-[176px] h-[45px] flex justify-center items-center hover:bg-[#4C3DB2] hover:text-white active:bg-[#4C3DB2] transition-all mx-auto uppercase font-bold"
+              >
+                load more
+              </button>
+            </div>
           </div>
         </section>
-        <div className="py-10">
-          <button className="text-[8px] text-[#4C3DB2] border-[1px] border-[#4C3DB2] w-[176px] h-[45px] flex justify-center items-center hover:bg-[#4C3DB2] hover:text-white active:bg-[#4C3DB2] transition-all mx-auto uppercase font-bold">
-            load more
-          </button>
-        </div>
       </Layout>
     </>
   );

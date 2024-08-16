@@ -1,6 +1,3 @@
-import Link from "next/link";
-import Image from "next/image";
-
 import Carousel from "@/components/Carousel/Carousel";
 import Layout from "@/components/Layout/Layout";
 import { SLIDES } from "../../const";

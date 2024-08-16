@@ -19,12 +19,13 @@ export const Book = ({
   amount,
   currencyCode,
 }: Props) => {
-  function truncateText(text: string, limit: number) {
+  function truncateText(text: string, limit: number): string {
     return (
       text.split(" ").slice(0, limit).join(" ") +
       (text.split(" ").length > limit ? "..." : "")
     );
   }
+
   return (
     <div className="flex gap-[36px]">
       <Image
@@ -32,6 +33,7 @@ export const Book = ({
         alt={truncateText(alt, 2)}
         width={212}
         height={300}
+        style={{ width: "212px", height: "300px" }}
         className="w-[212px] h-[300px] shadow-[0_24px_36px_0_#35315447]"
       />
       <div className="flex flex-col justify-around">
