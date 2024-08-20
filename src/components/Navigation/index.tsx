@@ -14,7 +14,7 @@ export default function Navigation() {
             [styles.active]: router.pathname === "/books",
           })}
         >
-          <Link href="/books">books</Link>
+          <Link href="/">books</Link>
         </li>
         <li
           className={clsx(styles.item, {

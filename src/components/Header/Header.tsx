@@ -4,16 +4,13 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import Navigation from "../Navigation/navigation";
+import Navigation from "../Navigation";
 import styles from "./header.module.scss";
+import LoginUser from "./LoginUser";
 
-export default function Header() {
+function Header() {
   const router = useRouter();
   const [selected, setSelected] = useState(false);
-
-  function handleSelect() {
-    setSelected((prev) => !prev);
-  }
 
   return (
     <>
@@ -27,14 +24,16 @@ export default function Header() {
           Bookshop
         </Link>
         <Navigation />
-        <div className="flex gap-[95px]">
+        <div className="flex gap-[95px] relative">
           <Link href="/user">
             <Image
               src="/icons/user_icon.svg"
               alt="user"
               width={12}
               height={15}
+              onClick={() => setSelected(!selected)}
             />
+            {selected && <LoginUser />}
           </Link>
           <Link href="/cart">
             <Image
@@ -49,3 +48,5 @@ export default function Header() {
     </>
   );
 }
+
+export default Header;

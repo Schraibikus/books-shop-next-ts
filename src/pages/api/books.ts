@@ -1,13 +1,23 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
+import axios from "axios";
 
-// export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-// 	const { subject, page } = req.query;
+import { API_KEY, API_URL } from "../../../const";
 
-//         const gbooksReqParams = new URLSearchParams();
-//         gbooksReqParams.set('q', `Subject:${subject}`);
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { subject, startIndex } = req.query;
+  const params = new URLSearchParams();
+  params.set("q", `subject:${subject}`);
+  params.set("key", `${API_KEY}`);
+  params.set("printType", "books");
+  params.set("startIndex", `${startIndex}`);
+  params.set("maxResults", "6");
+  params.set("langRestrict", "en");
+  const booksReaponse = await axios.get(`${API_URL}?${params.toString()}`);
 
-//         const res = await fetch(`https://www.googleapis.com/books/v1/volumes?${gbooksReqParams.toString()}`)
-
-//         const booksData = await res.json();
-
-// }
+  res.status(200).send({
+    booksReaponse,
+  });
+}

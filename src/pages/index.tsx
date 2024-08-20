@@ -1,14 +1,31 @@
-import Carousel from "@/components/Carousel/Carousel";
-import Layout from "@/components/Layout/Layout";
-import { SLIDES } from "../../const";
+import axios from "axios";
+
+import Carousel from "@/components/Carousel";
+import Layout from "@/components/Layout";
+import Books from "@/components/Books";
+import { API_KEY, API_URL, CATEGORIES, SLIDES } from "../../const";
+
+export async function getServerSideProps() {
+  const booksReaponse = await axios.get(
+    `${API_URL}?q=subject=${
+      CATEGORIES[0]
+    }&key=${API_KEY}&printType=books&startIndex=${0}&maxPesult=6&langRestrict=en`
+  );
+  return {
+    props: {
+      books: booksReaponse.data.items,
+    },
+  };
+}
 
 export default function Home() {
   return (
     <>
       <Layout>
-        <section className="mb-10 w-full flex justify-center items-center relative">
+        <section className="mb-[180px] w-full flex justify-center items-center relative">
           <Carousel slides={SLIDES} />
         </section>
+        <Books />
       </Layout>
     </>
   );

@@ -12,24 +12,24 @@ export const MOCK_IMAGES: string[] = [
   "/mockImages/05.png",
 ];
 
-export const KEY: string = "AIzaSyDDOMidehv5Pbxvwys6YMfRx700GHYlpkk";
+export const API_KEY: string = `${process.env.NEXT_PUBLIC_BOOKSTORE_API_KEY}`;
 
 export const API_URL: string = "https://www.googleapis.com/books/v1/volumes";
 
-export const CATEGORYS: string[] = [
+export const CATEGORIES: string[] = [
   "Architecture",
-  "Art",
-  "Biography & Autobiography",
-  "Buisness & Economics",
-  "Crafts & Hobbies",
+  "Art & Fashion",
+  "Biography",
+  "Business",
   "Drama",
   "Fiction",
-  "Health & Fitness",
-  "History",
+  "Food & Drink",
+  "Health & Wellbeing",
+  "History & Politics",
   "Humor",
   "Poetry",
   "Psychology",
   "Science",
-  "Technology & Engeniring",
-  "Travel",
+  "Technology",
+  "Travel & Maps",
 ];

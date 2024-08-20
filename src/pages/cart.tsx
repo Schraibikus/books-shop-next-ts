@@ -1,5 +1,5 @@
-import CartItem from "@/components/CartItem/CartItem";
-import Layout from "@/components/Layout/Layout";
+import CartItem from "@/components/CartItem";
+import Layout from "@/components/Layout";
 
 export default function Cart() {
   return (

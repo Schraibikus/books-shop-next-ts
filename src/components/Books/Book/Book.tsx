@@ -1,24 +1,34 @@
 import Image from "next/image";
 
-interface Props {
+import formatAvRate from "@/utils/formatAvRate";
+
+interface BookProps {
+  id: string;
   imageUrl: string;
   alt: string;
   title: string;
   author: string;
   description: string;
+  averageRating: number;
+  ratingCount: number;
   amount: string | undefined;
   currencyCode: string | undefined;
+  buyNowHandler: (id: string) => void;
 }
 
-export const Book = ({
+const Book = ({
+  id,
   imageUrl,
   alt,
   title,
   author,
   description,
+  averageRating,
+  ratingCount,
   amount,
   currencyCode,
-}: Props) => {
+  buyNowHandler,
+}: BookProps) => {
   function truncateText(text: string, limit: number): string {
     return (
       text.split(" ").slice(0, limit).join(" ") +
@@ -26,10 +36,14 @@ export const Book = ({
     );
   }
 
+  function getRandomRating(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   return (
     <div className="flex gap-[36px]">
       <Image
-        src={imageUrl}
+        src={imageUrl ? imageUrl : "images/placeholderImg.png"}
         alt={truncateText(alt, 2)}
         width={212}
         height={300}
@@ -41,6 +55,12 @@ export const Book = ({
         <h5 className="font-primary font-bold text-base text-[#1C2A39]">
           {truncateText(title, 5)}
         </h5>
+        <div className="mb-[16px] flex items-center wrap">
+          {formatAvRate(averageRating ? averageRating : getRandomRating(1, 5))}
+          <span className="font-secondary text-[13px] ml-[6px]">
+            {ratingCount ? ratingCount : getRandomRating(0, 10000)} reviews
+          </span>
+        </div>
         <p className="text-[10px] font-secondary text-[#5C6A79]">
           {truncateText(description, 15)}
         </p>
@@ -48,10 +68,15 @@ export const Book = ({
           {currencyCode}
           {amount}
         </p>
-        <button className="text-[8px] text-[#4C3DB2] border-[1px] border-[#4C3DB2] w-[176px] h-[45px] flex justify-center items-center hover:bg-[#4C3DB2] hover:text-white active:bg-[#4C3DB2] transition-all uppercase font-bold">
+        <button
+          onClick={() => buyNowHandler(id)}
+          className="text-[8px] text-[#4C3DB2] border-[1px] border-[#4C3DB2] w-[176px] h-[45px] flex justify-center items-center hover:bg-[#4C3DB2] hover:text-white active:bg-[#4C3DB2] transition-all uppercase font-bold"
+        >
           buy now
         </button>
       </div>
     </div>
   );
 };
+
+export { Book };

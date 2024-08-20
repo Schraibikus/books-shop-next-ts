@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import Layout from "@/components/Layout/Layout";
+import Layout from "@/components/Layout";
 
 export default function User() {
   return (
@@ -31,10 +31,16 @@ export default function User() {
             <h3 className="font-bold text-[12px] mt-[17px] mb-[29px]">
               ABOUT ME
             </h3>
-            <textarea
+            {/* <textarea
               placeholder="Введите информацию о себе"
               className="bg-[#FFE0E2] w-[353px] h-[345px] resize-none px-5 font-semibold text-[12px] placeholder:text-[#5C6A79]"
-            ></textarea>
+            ></textarea> */}
+            <p className="px-7 font-semibold text-[12px] text-[#5C6A79]">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in
+              ante consequat, ornare nisi et, ultrices libero. Nunc nibh dolor,
+              maximus quis auctor nec, tempor quis ipsum. Proin mollis
+              pellentesque nulla ac varius.
+            </p>
           </div>
         </section>
       </Layout>

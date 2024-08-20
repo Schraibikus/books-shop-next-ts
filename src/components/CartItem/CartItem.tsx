@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function CartItem() {
+function CartItem() {
   return (
     <>
       <section className="mt-[30px] mb-10 w-full flex justify-center items-center justify-between font-primary font-bold">
@@ -21,3 +21,5 @@ export default function CartItem() {
     </>
   );
 }
+
+export default CartItem;

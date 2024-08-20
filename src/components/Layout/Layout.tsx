@@ -3,7 +3,7 @@ import { PropsWithChildren } from "react";
 
 import Header from "../Header/Header";
 
-export default function Layout({ children }: PropsWithChildren) {
+function Layout({ children }: PropsWithChildren) {
   return (
     <>
       <Head>
@@ -20,3 +20,5 @@ export default function Layout({ children }: PropsWithChildren) {
     </>
   );
 }
+
+export default Layout;
