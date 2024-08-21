@@ -5,27 +5,9 @@ import Layout from "@/components/Layout";
 import { API_KEY, API_URL, CATEGORIES, SLIDES } from "../../../const";
 import { Book } from "@/components/Books/Book";
 import { useAppDispatch } from "@/hooks/useRedux";
-import cartSlice from "@/store/cartSlice";
+import { BookItem } from "@/types";
 
-export interface BookItem {
-  id: string;
-  volumeInfo: {
-    title: string;
-    authors?: string;
-    imageLinks: {
-      thumbnail: string;
-    };
-    description?: string | undefined;
-    averageRating?: number;
-    ratingCount?: number;
-  };
-  saleInfo?: {
-    listPrice: {
-      amount: number | undefined;
-      currencyCode: string | undefined;
-    };
-  };
-}
+import { cartSlice } from "@/store/cartSlice";
 
 function Books(): JSX.Element {
   const dispatch = useAppDispatch();

@@ -1,26 +1,42 @@
-interface Price {
-  amount: string;
-  currencyCode: string;
+interface BookItem {
+  id: string;
+  volumeInfo: {
+    title: string;
+    authors?: string;
+    imageLinks: {
+      thumbnail: string;
+    };
+    description?: string | undefined;
+    averageRating?: number;
+    ratingCount?: number;
+  };
+  saleInfo?: {
+    listPrice: {
+      amount: number | undefined;
+      currencyCode: string | undefined;
+    };
+  };
 }
 
 interface CartBook {
   imageUrl: string;
-  authors: string[];
+  authors: string | string[];
   title: string;
   averageRating: number;
   ratingCount: number;
-  price: Price;
+  amount: number;
+  currencyCode: string;
 }
 
-interface CartItem {
+interface CartItemType {
   id: string;
   book: CartBook;
   qantity: number;
   delivery: string;
 }
 
-interface Cart {
-  items: CartItem[];
+interface CartTotal {
+  items: CartItemType[];
   total: number;
 }
-export type { Cart, CartItem, CartBook, Price };
+export type { CartTotal, CartItemType, CartBook, BookItem };

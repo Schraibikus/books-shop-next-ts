@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import Navigation from "../Navigation";
+import Navigation from "../Navigation/Navigation";
 import styles from "./header.module.scss";
 import LoginUser from "./LoginUser";
 

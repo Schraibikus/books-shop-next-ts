@@ -1,32 +1,33 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Cart, CartItem } from "../types";
+import { CartTotal, CartItemType } from "../types";
 
-const initialState: Cart = {
+const initialState: CartTotal = {
   items: [],
   total: 0,
 };
 
 export const cartSlice = createSlice({
-  name: "cart",
+  name: "cartTotal",
   initialState,
   reducers: {
     getCartItems(state, action: PayloadAction<any>) {
-      state.items.push(action.payload);
-      action.payload.forEach((item: CartItem) => {
-        state.total += item.book.price.amount * item.qantity;
+      state.items = action.payload;
+      action.payload.forEach((item: CartItemType) => {
+        state.total += item.book.amount * item.qantity;
       });
     },
     addCartItem(state, action: PayloadAction<any>) {
       const LSstate = localStorage.getItem("persist:root");
       const parsedLSstate = LSstate ? JSON.parse(LSstate) : {};
-      const curCart = JSON.parse(parsedLSstate.cart);
+      const curCart = JSON.parse(parsedLSstate.cartTotal);
       const itemInCart = curCart.items.find(
-        (item: CartItem) => item.id === action.payload.id
+        (item: CartItemType) => item.id === action.payload.id
       );
+      console.log("itemInCart: ", itemInCart);
 
       if (!itemInCart) {
-        const item: CartItem = {
+        const item: CartItemType = {
           id: action.payload.id,
           book: {
             imageUrl: action.payload.volumeInfo.imageLinks.thumbnail,
@@ -34,9 +35,8 @@ export const cartSlice = createSlice({
             title: action.payload.volumeInfo.title,
             averageRating: action.payload.volumeInfo.averageRating,
             ratingCount: action.payload.volumeInfo.ratingsCount,
-            price: action.payload.saleInfo.listPrice
-              ? action.payload.saleInfo.listPrice
-              : { amount: 0, currencyCode: "" },
+            amount: action.payload.saleInfo.listPrice.amount,
+            currencyCode: action.payload.saleInfo.listPrice.currencyCode,
           },
           qantity: 1,
           delivery: "delivery",
@@ -46,29 +46,30 @@ export const cartSlice = createSlice({
         itemInCart.qantity++;
       }
       const newCart = JSON.stringify(curCart);
-      parsedLSstate.cart = newCart;
+      console.log("newCart: ", newCart);
+      parsedLSstate.cartTotal = newCart;
       localStorage.setItem("persist:root", JSON.stringify(parsedLSstate));
     },
     changeQantity(state, action: PayloadAction<any>) {
       const LSstate = localStorage.getItem("persist:root");
       const parsedLSstate = LSstate ? JSON.parse(LSstate) : {};
-      const curCart = JSON.parse(parsedLSstate.cart);
+      const curCart = JSON.parse(parsedLSstate.cartTotal);
       const item = curCart.items.find(
-        (item: CartItem) => item.id === action.payload[1]
+        (item: CartItemType) => item.id === action.payload[1]
       );
       const itemIndex = curCart.items.findIndex(
-        (item: CartItem) => item.id === action.payload[1]
+        (item: CartItemType) => item.id === action.payload[1]
       );
       const stateItem = state.items.find(
-        (item: CartItem) => item.id === action.payload[1]
+        (item: CartItemType) => item.id === action.payload[1]
       );
       const stateItemIndex = state.items.findIndex(
-        (item: CartItem) => item.id === action.payload[1]
+        (item: CartItemType) => item.id === action.payload[1]
       );
       if (action.payload[0] === "minus") {
         stateItem && stateItem.qantity--;
         item.qantity--;
-        state.total -= item.book.price.amount;
+        state.total -= item.book.amount;
         if (item.qantity <= 0) {
           item.qantity = 0;
           stateItem && (stateItem.qantity = 0);
@@ -81,7 +82,7 @@ export const cartSlice = createSlice({
         state.total += item.book.price.amount;
       }
       const newCart = JSON.stringify(curCart);
-      parsedLSstate.cart = newCart;
+      parsedLSstate.cartTotal = newCart;
       localStorage.setItem("persist:root", JSON.stringify(parsedLSstate));
     },
   },
