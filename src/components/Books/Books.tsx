@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import { API_KEY, API_URL, CATEGORIES, SLIDES } from "../../../const";
 import { Book } from "@/components/Books/Book";
-import { useAppDispatch } from "@/hooks/useRedux";
+import { useAppDispatch } from "@/hooks/redux";
 import { BookItem } from "@/types";
 
 import { cartSlice } from "@/store/cartSlice";
 
-function Books(): JSX.Element {
+function Books({ books }: { books: BookItem[] }): JSX.Element {
   const dispatch = useAppDispatch();
-  const [books, setBooks] = useState<BookItem[]>([]);
+  const [currentBooks, setCurrentBooks] = useState<BookItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [categoryEvent, setCategoryEvent] = useState(CATEGORIES[0]);
   const [nextBooks, setNextBooks] = useState(0);
@@ -32,7 +32,7 @@ function Books(): JSX.Element {
     async function fetchData(params: URLSearchParams) {
       try {
         const booksReaponse = await axios.get(`${API_URL}?${params}`);
-        setBooks(booksReaponse.data.items);
+        setCurrentBooks(booksReaponse.data.items);
       } catch (error) {
         alert("Ошибка при запросе данных ;(");
         console.error(error);
@@ -47,7 +47,7 @@ function Books(): JSX.Element {
     async function fetchData(params: URLSearchParams) {
       try {
         const booksReaponse = await axios.get(`${API_URL}?${params}`);
-        setBooks(booksReaponse.data.items);
+        setCurrentBooks(booksReaponse.data.items);
       } catch (error) {
         alert("Ошибка при запросе данных ;(");
         console.error(error);
@@ -62,7 +62,7 @@ function Books(): JSX.Element {
     async function fetchData(params: URLSearchParams) {
       try {
         const booksReaponse = await axios.get(`${API_URL}?${params}`);
-        setBooks(booksReaponse.data.items);
+        setCurrentBooks(booksReaponse.data.items);
       } catch (error) {
         alert("Ошибка при запросе данных ;(");
         console.error(error);
@@ -87,11 +87,11 @@ function Books(): JSX.Element {
     const newBooks = await axios.get(
       `${API_URL}?${getParams(categoryEvent, nextBooks + 6)}`
     );
-    setBooks([...newBooks.data.items]);
+    setCurrentBooks([...newBooks.data.items]);
   }
 
   const buyNowHandler = (id: string) => {
-    const clickedBook = books.find((book: BookItem) => book.id === id);
+    const clickedBook = currentBooks.find((book: BookItem) => book.id === id);
     dispatch(cartSlice.actions.addCartItem(clickedBook));
   };
 
@@ -120,8 +120,8 @@ function Books(): JSX.Element {
           </ul>
         </aside>
         <div className="grid grid-cols-2 bg-transparent gap-[60px] absolute left-[196px] top-0">
-          {books.length > 0 &&
-            books.map((book: BookItem, index) => (
+          {currentBooks.length > 0 &&
+            currentBooks.map((book: BookItem, index) => (
               <Book
                 key={book.id}
                 id={book.id}

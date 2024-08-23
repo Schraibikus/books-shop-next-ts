@@ -35,18 +35,22 @@ export const cartSlice = createSlice({
             title: action.payload.volumeInfo.title,
             averageRating: action.payload.volumeInfo.averageRating,
             ratingCount: action.payload.volumeInfo.ratingsCount,
-            amount: action.payload.saleInfo.listPrice.amount,
-            currencyCode: action.payload.saleInfo.listPrice.currencyCode,
+            amount: action.payload.saleInfo?.listPrice?.amount
+              ? action.payload.saleInfo.listPrice.amount
+              : 0,
+            currencyCode: action.payload.saleInfo?.listPrice?.currencyCode
+              ? action.payload.saleInfo.listPrice.currencyCode
+              : "",
           },
           qantity: 1,
           delivery: "delivery",
         };
         curCart.items.push(item);
+        console.log(curCart.items.length);
       } else {
         itemInCart.qantity++;
       }
       const newCart = JSON.stringify(curCart);
-      console.log("newCart: ", newCart);
       parsedLSstate.cartTotal = newCart;
       localStorage.setItem("persist:root", JSON.stringify(parsedLSstate));
     },
@@ -79,7 +83,7 @@ export const cartSlice = createSlice({
       } else {
         stateItem && stateItem.qantity++;
         item.qantity++;
-        state.total += item.book.price.amount;
+        state.total += item.book.amount;
       }
       const newCart = JSON.stringify(curCart);
       parsedLSstate.cartTotal = newCart;

@@ -1,4 +1,4 @@
-import { useAppDispatch } from "@/hooks/useRedux";
+import { useAppDispatch } from "@/hooks/redux";
 import { cartSlice } from "@/store/cartSlice";
 import formatAvRate from "@/utils/formatAvRate";
 import Image from "next/image";
@@ -9,7 +9,6 @@ interface CartItemProps {
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
-  console.log(item);
   const dispatch = useAppDispatch();
 
   function getRandomRating(min: number, max: number) {
@@ -19,7 +18,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
   return (
     <>
       <section className="mt-[30px] mb-10 w-full flex justify-center items-center justify-between font-primary font-bold">
-        <div className="flex w-full justify-between items-center">
+        <div className="flex w-full items-center">
           <div className="flex gap-[16px] items-center w-[300px]">
             <Image
               src={
@@ -53,7 +52,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
               </div>
             </div>
           </div>
-          <div className="border border-[#5C6A79] w-[176px] h-[45px] flex justify-around items-center gap-[10px]">
+          <div className="border border-[#5C6A79] w-[176px] h-[45px] flex justify-around items-center gap-[10px] ml-[40px]">
             <button
               onClick={() => {
                 dispatch(cartSlice.actions.changeQantity(["minus", item.id]));
@@ -84,15 +83,15 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
               />
             </button>
           </div>
-          <div className="">
-            {/* {item.book.currencyCode === "RUB" ? (
+          <div className="ml-[180px]">
+            {item.book.currencyCode === "RUB" ? (
               <span>&#8381;</span>
             ) : (
               item.book.currencyCode
             )}{" "}
-            {item.book.amount ? item.book.amount : "Not price"} */}
+            {item.book.amount ? item.book.amount : "Not price"}
           </div>
-          <div className="text-[#5C6A79] text-[12px]">
+          <div className="text-[#5C6A79] text-[12px] ml-[250px]">
             Shipping: {item.delivery}
           </div>
         </div>

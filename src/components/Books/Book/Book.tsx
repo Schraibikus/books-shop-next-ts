@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import formatAvRate from "@/utils/formatAvRate";
+import { useState } from "react";
 
 interface BookProps {
   id: string;
@@ -29,6 +30,12 @@ const Book = ({
   currencyCode,
   buyNowHandler,
 }: BookProps) => {
+  const [isInCart, setIsInCart] = useState(false);
+  const handleBuyNow = () => {
+    buyNowHandler(id);
+    setIsInCart(true);
+  };
+
   function truncateText(text: string, limit: number): string {
     return (
       text.split(" ").slice(0, limit).join(" ") +
@@ -69,10 +76,14 @@ const Book = ({
           {amount}
         </p>
         <button
-          onClick={() => buyNowHandler(id)}
-          className="text-[8px] text-[#4C3DB2] border-[1px] border-[#4C3DB2] w-[176px] h-[45px] flex justify-center items-center hover:bg-[#4C3DB2] hover:text-white active:bg-[#4C3DB2] transition-all uppercase font-bold"
+          onClick={handleBuyNow}
+          className={
+            isInCart
+              ? "text-[8px] text-[#5C6A79] border-[1px] border-[#5C6A79] w-[176px] h-[45px] flex justify-center items-center hover:bg-[#5C6A79] hover:text-white active:bg-[#5C6A79] transition-all uppercase font-bold"
+              : "text-[8px] text-[#4C3DB2] border-[1px] border-[#4C3DB2] w-[176px] h-[45px] flex justify-center items-center hover:bg-[#4C3DB2] hover:text-white active:bg-[#4C3DB2] transition-all uppercase font-bold"
+          }
         >
-          buy now
+          {isInCart ? "In the cart" : "buy now"}
         </button>
       </div>
     </div>

@@ -39,4 +39,5 @@ interface CartTotal {
   items: CartItemType[];
   total: number;
 }
+
 export type { CartTotal, CartItemType, CartBook, BookItem };

@@ -7,10 +7,17 @@ import { useState } from "react";
 import Navigation from "../Navigation/Navigation";
 import styles from "./header.module.scss";
 import LoginUser from "./LoginUser";
+import { useAppDispatch } from "@/hooks/redux";
 
 function Header() {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const [selected, setSelected] = useState(false);
+
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+    setSelected(false);
+  };
 
   return (
     <>

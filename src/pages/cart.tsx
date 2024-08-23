@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 import CartItem from "@/components/CartItem";
 import Layout from "@/components/Layout";
@@ -8,7 +8,6 @@ import { cartSlice } from "@/store/cartSlice";
 export default function Cart() {
   const dispatch = useAppDispatch();
   const { items, total } = useAppSelector((state) => state.cartTotal);
-  // console.log(items);
 
   useEffect(() => {
     const LSstate = localStorage.getItem("persist:root");
@@ -17,7 +16,6 @@ export default function Cart() {
     dispatch(cartSlice.actions.getCartItems(curCart.items));
   }, [dispatch]);
 
-  console.log();
   return (
     <>
       <Layout>
@@ -34,7 +32,9 @@ export default function Cart() {
               {+items.length ? (
                 items.map((item) => <CartItem key={item.id} item={item} />)
               ) : (
-                <p>Cart empty</p>
+                <p className="text-2xl mt-[10px] mb-[10px] text-center text-[#5C6A79] border p-10">
+                  Cart empty
+                </p>
               )}
             </ul>
 
