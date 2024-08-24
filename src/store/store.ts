@@ -1,14 +1,14 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import cartTotal from "./cartSlice";
+import cart from "./cartSlice";
 
 const persistConfig = {
   key: "root", //Название ключа в localStorage
   storage,
 };
 
-const rootReducer = combineReducers({ cartTotal });
+const rootReducer = combineReducers({ cart });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const setupStore = () =>
   configureStore({

@@ -8,7 +8,7 @@ const initialState: CartTotal = {
 };
 
 export const cartSlice = createSlice({
-  name: "cartTotal",
+  name: "cart",
   initialState,
   reducers: {
     getCartItems(state, action: PayloadAction<any>) {
@@ -20,7 +20,7 @@ export const cartSlice = createSlice({
     addCartItem(state, action: PayloadAction<any>) {
       const LSstate = localStorage.getItem("persist:root");
       const parsedLSstate = LSstate ? JSON.parse(LSstate) : {};
-      const curCart = JSON.parse(parsedLSstate.cartTotal);
+      const curCart = JSON.parse(parsedLSstate.cart);
       const itemInCart = curCart.items.find(
         (item: CartItemType) => item.id === action.payload.id
       );
@@ -51,13 +51,13 @@ export const cartSlice = createSlice({
         itemInCart.qantity++;
       }
       const newCart = JSON.stringify(curCart);
-      parsedLSstate.cartTotal = newCart;
+      parsedLSstate.cart = newCart;
       localStorage.setItem("persist:root", JSON.stringify(parsedLSstate));
     },
     changeQantity(state, action: PayloadAction<any>) {
       const LSstate = localStorage.getItem("persist:root");
       const parsedLSstate = LSstate ? JSON.parse(LSstate) : {};
-      const curCart = JSON.parse(parsedLSstate.cartTotal);
+      const curCart = JSON.parse(parsedLSstate.cart);
       const item = curCart.items.find(
         (item: CartItemType) => item.id === action.payload[1]
       );
@@ -86,7 +86,7 @@ export const cartSlice = createSlice({
         state.total += item.book.amount;
       }
       const newCart = JSON.stringify(curCart);
-      parsedLSstate.cartTotal = newCart;
+      parsedLSstate.cart = newCart;
       localStorage.setItem("persist:root", JSON.stringify(parsedLSstate));
     },
   },

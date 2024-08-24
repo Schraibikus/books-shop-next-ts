@@ -7,12 +7,12 @@ import { cartSlice } from "@/store/cartSlice";
 
 export default function Cart() {
   const dispatch = useAppDispatch();
-  const { items, total } = useAppSelector((state) => state.cartTotal);
+  const { items, total } = useAppSelector((state) => state.cart);
 
   useEffect(() => {
     const LSstate = localStorage.getItem("persist:root");
     const parsedLSstate = LSstate ? JSON.parse(LSstate) : {};
-    const curCart = JSON.parse(parsedLSstate.cartTotal);
+    const curCart = JSON.parse(parsedLSstate.cart);
     dispatch(cartSlice.actions.getCartItems(curCart.items));
   }, [dispatch]);
 

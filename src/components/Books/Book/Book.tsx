@@ -31,6 +31,7 @@ const Book = ({
   buyNowHandler,
 }: BookProps) => {
   const [isInCart, setIsInCart] = useState(false);
+
   const handleBuyNow = () => {
     buyNowHandler(id);
     setIsInCart(true);

@@ -2,22 +2,18 @@ import Link from "next/link";
 import clsx from "clsx";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Navigation from "../Navigation/Navigation";
 import styles from "./header.module.scss";
 import LoginUser from "./LoginUser";
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppSelector } from "@/hooks/redux";
 
 function Header() {
-  const dispatch = useAppDispatch();
   const router = useRouter();
   const [selected, setSelected] = useState(false);
 
-  const handleLogout = () => {
-    dispatch({ type: "LOGOUT" });
-    setSelected(false);
-  };
+  const curCart = useAppSelector((state) => state.cart);
 
   return (
     <>
@@ -42,13 +38,18 @@ function Header() {
             />
             {selected && <LoginUser />}
           </Link>
-          <Link href="/cart">
+          <Link href="/cart" className="relative">
             <Image
               src="/icons/bag_icon.svg"
               alt="cart"
               width={14}
               height={17}
             />
+            {curCart.items.length > 0 && (
+              <span className="absolute top-[10px] left-[5px] text-[10px] text-white bg-red-500 rounded-full w-[13px] h-[13px] flex justify-center items-center font-primary">
+                {curCart.items.length}
+              </span>
+            )}
           </Link>
         </div>
       </header>
