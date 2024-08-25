@@ -1,28 +1,19 @@
 import Link from "next/link";
-import clsx from "clsx";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useState } from "react";
 
 import Navigation from "../Navigation/Navigation";
-import styles from "./header.module.scss";
 import LoginUser from "./LoginUser";
 import { CartTotal } from "../../types";
 
 function Header({ curCart }: { curCart: CartTotal }) {
-  const router = useRouter();
   const [selected, setSelected] = useState(false);
-
-  // const curCart = useAppSelector((state) => state.cart);
-
   return (
     <>
       <header className="h-[116px] flex justify-center gap-[248px] items-center bg-white">
         <Link
           href="/"
-          className={clsx(styles.logo, {
-            [styles.disabled]: router.pathname === "/",
-          })}
+          className="text-[24px] font-bold text-[#1c2a39] transition-all hover:opacity-70"
         >
           Bookshop
         </Link>
