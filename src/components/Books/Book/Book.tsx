@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import formatAvRate from "@/utils/formatAvRate";
+import formatAvRate from "../../../utils/formatAvRate";
 import { useState } from "react";
 
 interface BookProps {

@@ -1,6 +1,6 @@
 import { useAppDispatch } from "@/hooks/redux";
-import { cartSlice } from "@/store/cartSlice";
-import formatAvRate from "@/utils/formatAvRate";
+import { cartSlice } from "../../store/cartSlice";
+import formatAvRate from "../../utils/formatAvRate";
 import Image from "next/image";
 import { CartItemType } from "../../types";
 

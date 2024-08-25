@@ -24,7 +24,6 @@ export const cartSlice = createSlice({
       const itemInCart = curCart.items.find(
         (item: CartItemType) => item.id === action.payload.id
       );
-      console.log("itemInCart: ", itemInCart);
 
       if (!itemInCart) {
         const item: CartItemType = {
@@ -46,7 +45,6 @@ export const cartSlice = createSlice({
           delivery: "delivery",
         };
         curCart.items.push(item);
-        console.log(curCart.items.length);
       } else {
         itemInCart.qantity++;
       }

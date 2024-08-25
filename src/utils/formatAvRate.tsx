@@ -1,6 +1,4 @@
 export default function formatAvRate(rateNum: number): JSX.Element[] | "" {
-  let maxStars = 5;
-
   if (!rateNum) {
     return "";
   }

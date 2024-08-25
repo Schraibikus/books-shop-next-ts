@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
-import CartItem from "@/components/CartItem";
-import Layout from "@/components/Layout";
-import { cartSlice } from "@/store/cartSlice";
+import CartItem from "../components/CartItem";
+import Layout from "../components/Layout";
+import { cartSlice } from "../store/cartSlice";
 
 export default function Cart() {
   const dispatch = useAppDispatch();

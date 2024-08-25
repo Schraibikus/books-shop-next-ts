@@ -9,6 +9,7 @@ export default async function handler(
   }
 
   const { email, password } = req.body;
+  console.log(req.body);
   const validatedInfo = validate(email, password);
   if (!validatedInfo) {
     res
