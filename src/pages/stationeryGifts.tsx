@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import Layout from "../components/Layout/Layout";
-import Carousel from "../components/Carousel";
+import Carousel from "../components/Slider/Carousel";
 import { SLIDES } from "../../const";
 
 export default function StationeryGifts() {
