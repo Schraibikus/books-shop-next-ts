@@ -2,7 +2,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import { useRouter } from "next/router";
 
-import styles from "@components/Navigation/navigation.module.scss";
+import styles from "./navigation.module.scss";
 
 function Navigation() {
   const router = useRouter();
