@@ -1,10 +1,10 @@
 import axios from "axios";
 
-import Carousel from "../components/Slider/Carousel";
-import Layout from "../components/Layout";
-import Books from "../components/Books";
-import { API_KEY, API_URL, CATEGORIES, SLIDES } from "../../const";
-import { BookItem } from "../types";
+import Carousel from "@/components/Slider/Carousel";
+import Layout from "@/components/Layout";
+import Books from "@/components/Books";
+import { API_KEY, API_URL, CATEGORIES, SLIDES } from "@/const";
+import { BookItem } from "@/types";
 
 export async function getServerSideProps() {
   const booksReaponse = await axios.get(

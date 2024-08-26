@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { PropsWithChildren } from "react";
 
-import Header from "../Header/Header";
-import { useAppSelector } from "../../hooks/redux";
+import Header from "@/components/Header";
+import { useAppSelector } from "@/hooks/redux";
 
 function Layout({ children }: PropsWithChildren) {
   const curCart = useAppSelector((state) => state.cart);

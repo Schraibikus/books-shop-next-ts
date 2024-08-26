@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import Layout from "../Layout/Layout";
-import { API_KEY, API_URL, CATEGORIES, SLIDES } from "../../../const";
-import { Book } from "../Books/Book";
-import { useAppDispatch } from "../../hooks/redux";
-import { BookItem } from "../../types";
+import Layout from "@/components/Layout";
+import { API_KEY, API_URL, CATEGORIES } from "@/const";
+import { Book } from "@/components/Books/Book";
+import { useAppDispatch } from "@/hooks/redux";
+import { BookItem } from "@/types";
 
 import { cartSlice } from "@/store/cartSlice";
 

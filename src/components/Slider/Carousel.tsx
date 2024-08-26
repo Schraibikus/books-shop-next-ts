@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-
-import styles from "./Carousel.module.scss";
-import debounce from "../../utils/debounce";
 import Link from "next/link";
+
+import styles from "@components/Slider/Carousel.module.scss";
+import debounce from "@/utils/debounce";
 
 type CarouselProps = {
   slides: string[];

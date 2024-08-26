@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
-import Navigation from "../Navigation/Navigation";
-import LoginUser from "./LoginUser";
-import { CartTotal } from "../../types";
+import Navigation from "@/components/Navigation";
+import LoginUser from "@/components/Header/LoginUser";
+import { CartTotal } from "@/types";
 
 function Header({ curCart }: { curCart: CartTotal }) {
   const [selected, setSelected] = useState(false);
