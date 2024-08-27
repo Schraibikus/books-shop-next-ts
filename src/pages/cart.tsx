@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 import CartItem from "@/components/CartItem";
 import Layout from "@/components/Layout";
-import { cartSlice } from "@/store/cartSlice";
+import { getCartItems } from "@/store/cartSlice";
 
 export default function Cart() {
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ export default function Cart() {
     const LSstate = localStorage.getItem("persist:root");
     const parsedLSstate = LSstate ? JSON.parse(LSstate) : {};
     const curCart = JSON.parse(parsedLSstate.cart);
-    dispatch(cartSlice.actions.getCartItems(curCart.items));
+    dispatch(getCartItems(curCart.items));
   }, [dispatch]);
 
   return (

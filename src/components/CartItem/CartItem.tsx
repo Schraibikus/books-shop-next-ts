@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@/hooks/redux";
-import { cartSlice } from "@/store/cartSlice";
+import { changeQantity } from "@/store/cartSlice";
 import formatAvRate from "@/utils/formatAvRate";
 import Image from "next/image";
 import { CartItemType } from "@/types";
@@ -55,7 +55,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
           <div className="border border-[#5C6A79] w-[176px] h-[45px] flex justify-around items-center gap-[10px] ml-[40px]">
             <button
               onClick={() => {
-                dispatch(cartSlice.actions.changeQantity(["minus", item.id]));
+                dispatch(changeQantity(["minus", item.id]));
               }}
               type="button"
               className="text-5xl font-secondary font-normal flex justify-center items-center"
@@ -70,7 +70,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
             <span>{item.qantity}</span>
             <button
               onClick={() => {
-                dispatch(cartSlice.actions.changeQantity(["plus", item.id]));
+                dispatch(changeQantity(["plus", item.id]));
               }}
               type="button"
               className="text-5xl font-secondary font-normal"

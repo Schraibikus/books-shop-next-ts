@@ -2,11 +2,8 @@ import Head from "next/head";
 import { PropsWithChildren } from "react";
 
 import Header from "@/components/Header";
-import { useAppSelector } from "@/hooks/redux";
 
 function Layout({ children }: PropsWithChildren) {
-  const curCart = useAppSelector((state) => state.cart);
-
   return (
     <>
       <Head>
@@ -17,7 +14,7 @@ function Layout({ children }: PropsWithChildren) {
       </Head>
 
       <div className="max-w-[1440px] flex flex-col min-h-screen bg-white">
-        <Header curCart={curCart} />
+        <Header />
         <main className="flex-1">{children}</main>
       </div>
     </>

@@ -7,7 +7,7 @@ import { Book } from "@/components/Books/Book";
 import { useAppDispatch } from "@/hooks/redux";
 import { BookItem } from "@/types";
 
-import { cartSlice } from "@/store/cartSlice";
+import { addCartItem } from "@/store/cartSlice";
 
 function Books({ books }: { books: BookItem[] }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -92,7 +92,7 @@ function Books({ books }: { books: BookItem[] }): JSX.Element {
 
   const buyNowHandler = (id: string) => {
     const clickedBook = currentBooks.find((book: BookItem) => book.id === id);
-    dispatch(cartSlice.actions.addCartItem(clickedBook));
+    dispatch(addCartItem(clickedBook));
   };
 
   if (loading) {

@@ -4,10 +4,12 @@ import { useState } from "react";
 
 import Navigation from "@/components/Navigation";
 import LoginUser from "@/components/Header/LoginUser";
-import { CartTotal } from "@/types";
+import { useAppSelector } from "@/hooks/redux";
 
-function Header({ curCart }: { curCart: CartTotal }) {
+function Header() {
   const [selected, setSelected] = useState(false);
+  const curCart = useAppSelector((state) => state.cart.items);
+
   return (
     <>
       <header className="h-[116px] flex justify-center gap-[248px] items-center bg-white">
@@ -36,9 +38,9 @@ function Header({ curCart }: { curCart: CartTotal }) {
               width={14}
               height={17}
             />
-            {curCart.items.length > 0 && (
+            {curCart.length > 0 && (
               <span className="absolute top-[10px] left-[5px] text-[10px] text-white bg-red-500 rounded-full w-[13px] h-[13px] flex justify-center items-center font-primary">
-                {curCart.items.length}
+                {curCart.length}
               </span>
             )}
           </Link>
